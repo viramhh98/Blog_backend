@@ -6,12 +6,13 @@ import booksRoutes from "./routes/bookRoutes.js";
 import blogsRoutes from "./routes/blogRoutes.js";
 
 dotenv.config();
+
 const app = express();
 
-// ✅ Allow only specific origins
+// Allow only specific origins
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://blog-frontend-zq17.vercel.app" // removed trailing slash
+  "https://blog-frontend-zq17.vercel.app/"
 ];
 
 app.use(cors({
@@ -23,39 +24,26 @@ app.use(cors({
     }
   },
   methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true,
+  credentials: true
 }));
 
 app.use(express.json());
 
-// ✅ MongoDB connection with status logs
-mongoose.connection.on("connected", () => console.log("✅ MongoDB connected successfully"));
-mongoose.connection.on("error", (err) => console.error("❌ MongoDB connection error:", err));
-mongoose.connection.on("disconnected", () => console.warn("⚠️ MongoDB disconnected"));
+// MongoDB connection
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("✅ MongoDB connection established");
-
-    // ✅ Start server *after* DB connects
-    const PORT = process.env.PORT || 5000;
-    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
-  } catch (err) {
-    console.error("❌ MongoDB connection failed:", err);
-    process.exit(1); // Stop the app if DB fails
-  }
-};
-
-// ✅ Connect to DB
-connectDB();
-
-// ✅ Routes
+// Routes
 app.use("/books", booksRoutes);
 app.use("/blogs", blogsRoutes);
 
-// ✅ Root route
-app.get("/", (_req, res) => res.send("API is running...."));
+// Root route
+app.get("/", (_req, res) => res.send("API is running..."));
+
+// Start server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
