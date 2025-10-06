@@ -58,4 +58,4 @@ app.use("/books", booksRoutes);
 app.use("/blogs", blogsRoutes);
 
 // Root route
-app.get("/", (_req, res) => res.send("API is running..."));
+app.get("/", (_req, res) => res.send("API is running...."));
