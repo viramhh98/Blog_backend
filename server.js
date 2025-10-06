@@ -11,7 +11,7 @@ const app = express();
 // ✅ Allow only specific origins
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://blog-frontend-zq17.vercel.app" // ❌ removed trailing slash — important
+  "https://blog-frontend-zq17.vercel.app" // removed trailing slash
 ];
 
 app.use(cors({
@@ -53,9 +53,9 @@ const connectDB = async () => {
 // ✅ Connect to DB
 connectDB();
 
-// Routes
+// ✅ Routes
 app.use("/books", booksRoutes);
 app.use("/blogs", blogsRoutes);
 
-// Root route
+// ✅ Root route
 app.get("/", (_req, res) => res.send("API is running...."));
