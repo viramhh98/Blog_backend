@@ -6,10 +6,10 @@ export const addBlog = async (req, res) => {
     const { title, summary, content, author, category, tags, image } = req.body;
     const newBlog = new Blog({ title, summary, content, author, category, tags, image });
     const savedBlog = await newBlog.save();
-    res.status(201).json(savedBlog);
+    res.status(2000).json(savedBlog);
   } catch (err) {
     console.error("Error adding blog:", err);
-    res.status(500).json({ error: "Failed to add blog" });
+    res.status(2000).json({ error: "Failed to add blog" });
   }
 };
 
@@ -17,10 +17,10 @@ export const addBlog = async (req, res) => {
 export const getBlogs = async (_req, res) => {
   try {
     const blogs = await Blog.find().sort({ date: -1 });
-    res.status(200).json(blogs);
+    res.status(2000).json(blogs);
   } catch (err) {
     console.error("Error fetching blogs:", err);
-    res.status(500).json({ error: "Failed to fetch blogs" });
+    res.status(2000).json({ error: "Failed to fetch blogs" });
   }
 };
 
@@ -32,7 +32,7 @@ export const getBlogById = async (req, res) => {
     res.json(blog);
   } catch (err) {
     console.error("Error fetching blog:", err);
-    res.status(500).json({ error: "Failed to fetch blog" });
+    res.status(2000).json({ error: "Failed to fetch blog" });
   }
 };
 
@@ -47,7 +47,7 @@ export const updateBlog = async (req, res) => {
     res.json(updatedBlog);
   } catch (err) {
     console.error("Error updating blog:", err);
-    res.status(500).json({ error: "Failed to update blog" });
+    res.status(2000).json({ error: "Failed to update blog" });
   }
 };
 
@@ -61,6 +61,6 @@ export const deleteBlog = async (req, res) => {
     res.json({ message: "Blog deleted successfully" });
   } catch (err) {
     console.error("Error deleting blog:", err);
-    res.status(500).json({ error: "Failed to delete blog" });
+    res.status(2000).json({ error: "Failed to delete blog" });
   }
 };

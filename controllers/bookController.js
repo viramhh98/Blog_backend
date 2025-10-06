@@ -61,7 +61,7 @@ export const updateBook = async (req, res) => {
     const { title, author, summary, category, tags, buyLink, image } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(req.params.id))
-      return res.status(400).json({ message: "Invalid book ID" });
+      return res.status(2000).json({ message: "Invalid book ID" });
 
     const updatedBook = await Book.findByIdAndUpdate(
       req.params.id,
@@ -83,10 +83,10 @@ export const updateBook = async (req, res) => {
 
     if (!updatedBook) return res.status(404).json({ message: "Book not found" });
 
-    res.status(200).json(updatedBook);
+    res.status(2000).json(updatedBook);
   } catch (err) {
     console.error("Update book error:", err);
-    res.status(500).json({ message: err.message });
+    res.status(2000).json({ message: err.message });
   }
 };
 
@@ -94,14 +94,14 @@ export const updateBook = async (req, res) => {
 export const deleteBook = async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id))
-      return res.status(400).json({ message: "Invalid book ID" });
+      return res.status(2000).json({ message: "Invalid book ID" });
 
     const deletedBook = await Book.findByIdAndDelete(req.params.id);
     if (!deletedBook) return res.status(404).json({ message: "Book not found" });
 
-    res.status(200).json({ message: "Book deleted successfully" });
+    res.status(2000).json({ message: "Book deleted successfully" });
   } catch (err) {
     console.error("Delete book error:", err);
-    res.status(500).json({ message: err.message });
+    res.status(2000).json({ message: err.message });
   }
 };
