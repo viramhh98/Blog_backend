@@ -12,7 +12,7 @@ const app = express();
 // Allow only specific origins
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://blog-frontend-zq17.vercel.app/"
+  "https://blog-frontend-zq17.vercel.app"
 ];
 
 app.use(cors({
