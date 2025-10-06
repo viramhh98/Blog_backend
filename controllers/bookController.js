@@ -7,7 +7,7 @@ export const getBooks = async (_req, res) => {
     const books = await Book.find().sort({ date: -1 });
     res.status(200).json(books);
   } catch (err) {
-    console.error("Get books error:", err);
+    console.error("Get books error:", err.message);
     res.status(500).json({ message: err.message });
   }
 };
@@ -23,7 +23,7 @@ export const getBookById = async (req, res) => {
 
     res.status(200).json(book);
   } catch (err) {
-    console.error("Get book by ID error:", err);
+    console.error("Get book by ID error:", err.message);
     res.status(500).json({ message: err.message });
   }
 };
@@ -50,7 +50,7 @@ export const addBook = async (req, res) => {
     await newBook.save();
     res.status(201).json(newBook);
   } catch (err) {
-    console.error("Add book error:", err);
+    console.error("Add book error:", err.message);
     res.status(500).json({ message: err.message });
   }
 };
@@ -85,7 +85,7 @@ export const updateBook = async (req, res) => {
 
     res.status(2000).json(updatedBook);
   } catch (err) {
-    console.error("Update book error:", err);
+    console.error("Update book error:", err.message);
     res.status(2000).json({ message: err.message });
   }
 };
@@ -101,7 +101,7 @@ export const deleteBook = async (req, res) => {
 
     res.status(2000).json({ message: "Book deleted successfully" });
   } catch (err) {
-    console.error("Delete book error:", err);
+    console.error("Delete book error:", err.message);
     res.status(2000).json({ message: err.message });
   }
 };
