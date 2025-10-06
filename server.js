@@ -12,7 +12,7 @@ const app = express();
 // Allow only specific origins
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://blog-frontend-zq17.vercel.app/"
+  "https://blog-frontend-zq17.vercel.app"
 ];
 
 app.use(cors({
@@ -32,10 +32,19 @@ app.use(express.json());
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => console.log("✅ MongoDB connected"))
-  .catch((err) => console.error("❌ MongoDB connection error:", err));
+  useUnifiedTopology: true
+});
+
+// ✅ Log connection events
+mongoose.connection.on("connected", () => {
+  console.log("✅ MongoDB is connected successfully!");
+});
+mongoose.connection.on("error", (err) => {
+  console.error("❌ MongoDB connection error:", err);
+});
+mongoose.connection.on("disconnected", () => {
+  console.warn("⚠️ MongoDB disconnected!");
+});
 
 // Routes
 app.use("/books", booksRoutes);
